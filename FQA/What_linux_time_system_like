@@ -1,0 +1,25 @@
+
+/********************************************************************************************************************* 
+ *  With Linux,NTP normally uses settimeofday() for large corrections (over half a second). 
+ *  The adjtimex() inteface allows for small clock frequency changes (slewing).
+ *  This can be done in a few different ways, see the man page for adjtimex clock_gettime(CLOCK_MONOTONIC, &spec);
+ *
+ *  CLOCK_REALTIME  -- settime()/settimeofday() calls and can also be frequency corrected by NTP via adjtimex(). 
+ *  CLOCK_MONOTONIC -- It is not affected by settime()/settimeofday(), but is frequency adjusted by NTP via adjtimex().
+ *  CLOCK_MONOTONIC_RAW -- that will not be modified at all, and will have a linear correlation with the hardware counters. 
+ *  CLOCK_MONOTONIC_RAW -- 记录系统启动时间严格单调递增，不受NTP影响
+ *  CLOCK_PROCESS_CPUTIME_ID:本进程到当前代码系统CPU花费的时间  
+ *  CLOCK_THREAD_CPUTIME_ID:本线程到当前代码系统CPU花费的时间
+ *
+ * wall time：xtime取决于用于对xtime计时的clocksource，它的精度达到纳秒级，内核大部分时间都是使用xtime来获得当前时间信息。
+ * xtime: 记录的是自1970年当前时刻所经历的纳秒数。(可以因用户的调整时间而产生跳变) 
+ * monotonic time: 该时间自系统开机后就一直单调地增加（ntp adjtimex会影响其单调性），系统休眠时（total_sleep_time)，monotoic时间不会递增。 
+ * raw monotonic time: 单调递增的时间， 但raw monotonic time不会受到NTP时间调整的影响，它代表着系统独立时钟硬件对时间的统计。 
+ * boot time: 与monotonic时间相同，不过会累加上系统休眠的时间(total_sleep_time)，它代表着系统上电后的总时间。 
+ *
+ * 时间精度
+ * time(0) -- 秒
+ * _ftime(0) -- 毫秒
+ * gettimeofday(Struct timeval*, NULL) -- 微秒
+ * clock_gettime(宏, struct spec*) -- 纳秒
+ ******************************************************************************************************************************************/

@@ -1,0 +1,2 @@
+1. cout not std namespace member ? ==> #inlcude <iostream> to shot
+2. 未定义引用？ ==》 virtual function snytax error or template declear and implement not in a file.
