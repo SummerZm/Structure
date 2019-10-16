@@ -5,7 +5,7 @@
 
 using namespace zmArray;
 template <typename T, unsigned N>
-class ArrayStack:public Array<T, N>, public Stack<T>
+class ArrayStack:public Stack<T>
 {
 	public:
 		int getSize();
@@ -13,29 +13,36 @@ class ArrayStack:public Array<T, N>, public Stack<T>
 		void push(const T&);
 		T pop();
 		T peek();
+		void display();
+
+	private:
+		Array<T, N> m_data;
 };
 
 template <typename T, unsigned N>
-int ArrayStack<T, N>::getSize() {return Array<T, N>::getSize();}
+int ArrayStack<T, N>::getSize() {return m_data.getSize();}
 
 template <typename T, unsigned N>
-bool ArrayStack<T, N>::isEmpty() {return Array<T, N>::getSize()<=0;}
+bool ArrayStack<T, N>::isEmpty() {return m_data.getSize()<=0;}
 
 template <typename T, unsigned N>
-void  ArrayStack<T, N>::push(const T& element) { Array<T, N>::addFirst(element);}
+void  ArrayStack<T, N>::push(const T& element) { m_data.addFirst(element);}
+
+template <typename T, unsigned N>
+void ArrayStack<T, N>::display() { m_data.display();}
 
 template <typename T, unsigned N>
 T  ArrayStack<T, N>::pop()
 {
-	T temp = Array<T, N>::get(0);
-	Array<T, N>::removeFirst();
+	T temp = m_data.get(0);
+	m_data.removeFirst();
 	return temp;
 }
 
 template <typename T, unsigned N>
 T  ArrayStack<T, N>::peek()
 {
-	T temp = Array<T, N>::get(0);
+	T temp = m_data.get(0);
 	return temp;
 }
 #endif

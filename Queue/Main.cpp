@@ -9,7 +9,7 @@
 template <typename T>
 void testQueue(Queue<T>& q)
 {
-	int loop =1000000;
+	int loop =100000;
 	long start=time_msec();
 	//std::cout<<"Start time (cpu-ns): "<<cpu_nsec()<<std::endl;
 	//std::cout<<"Start time (time-ms): "<<time_msec()<<std::endl;

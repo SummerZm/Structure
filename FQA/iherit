@@ -1,0 +1,14 @@
+1. 明确继承是一个 is a 的关系：
+	// 使用组合不要使用多继承的方式，更合理
+	// class ArrayQueue: Array<T, N>, public Queue<T>
+	class ArrayQueue: public Queue<T>  // is a
+	{
+		public:
+			int getSize();
+			bool isEmpty();
+			bool enqueue(const T&);
+			T dequeue();
+			T getFront();
+		private:
+			Array<T, N> m_data; // has a 
+	};
