@@ -5,7 +5,7 @@
 
 using namespace zmLinked;
 template <typename T>
-class LinkedStack: public Stack<Node<T>>, public Linked<T>
+class LinkedStack: public Stack<Node<T>>
 {
 	public:
 		int getSize();

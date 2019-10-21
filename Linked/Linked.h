@@ -31,7 +31,6 @@ namespace zmLinked
 			void display();
 
 		public:
-			//private:
 			T m_elemet;
 			Node<T> *m_next;
 	};

@@ -53,6 +53,7 @@ namespace zmArray
 		m_size = 0;
 		m_capacity = N;
 		m_data = new T[N];
+		std::cout<<"new size: "<<sizeof(T)*N<<std::endl;
 	}
 
 	template <typename T, unsigned N>
@@ -106,8 +107,14 @@ namespace zmArray
 			zmDebugInfo("Resize failed capacity<=m_size!");
 			return false;
 		}
-		m_data = (T*)zmRealloc(m_data, sizeof(T)*capacity);
-		//std::cout<<m_capacity<<" => "<<capacity<<std::endl;
+
+		// Do not surpport String. why ??
+		std::cout<<m_capacity<<" => "<<capacity<<std::endl;
+		T* tmp = (T*)new T[capacity];
+		for(int i=0; i<m_size; i++) {
+			tmp[i] = m_data[i];
+		}
+		m_data = tmp;
 		m_capacity = capacity;
 		zmDebugInfo("Resize succss!");
 		return true;
@@ -145,7 +152,7 @@ namespace zmArray
 	bool Array<T, N>::addFirst(const T& val) { return add(val, 0); }
 
 	template<typename T, unsigned N>
-	bool Array<T, N>::addLast(const T& val) { return add(val, m_size-1);}
+	bool Array<T, N>::addLast(const T& val) { return add(val, m_size);}
 
 	template<typename T, unsigned N>
 	T Array<T, N>::get(unsigned pos) { if(pos>=0 && pos<m_size) return m_data[pos]; }

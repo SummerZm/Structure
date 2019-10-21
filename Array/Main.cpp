@@ -49,8 +49,23 @@ void testArray()
 	cout<<arr2.pos(0)<<endl;
 }
 
+
+void testArray1()
+{
+	using namespace std;
+	using namespace zmArray;
+    Array<string, 5> arr1;
+	int i=0;
+	string s("A");
+	while(i<8) {
+		arr1.addLast(s);
+		i++;
+	}
+}
+
 int main(int argc, char** argv)
 {
     testArray();
+    testArray1();
     return 0;
 }
