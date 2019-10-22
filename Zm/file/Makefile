@@ -7,6 +7,7 @@ CXXFLAGS := -Wall -O3
 
 # 头文件和lib路径
 INC_ROOT = include
+INCLUDE_PATH = -I../../Array -I../inc/ -I../
 LIB_ROOT = lib
 
 # 目标文件
@@ -25,7 +26,7 @@ LIB_INC_DIR= ../inc/
 all:$(LIB)
 
 # 生成.o 文件 # $< 依赖文件 # $@ 目标文件
-%.o : %.c
+%.o : %.cpp
 	$(CC) $(CXXFLAGS) -c $< -o $@ $(INCLUDE_PATH) $(LIB_PATH) $(INC)
 
 #$(LIB) : $(OBJS)

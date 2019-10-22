@@ -6,7 +6,6 @@
 #ifndef _TIMING_H_
 #define _TIMING_H_
 #ifdef __cplusplus
-#include <time.h>
 extern "C" {
 #endif
 	unsigned long cpu_nsec();

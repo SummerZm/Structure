@@ -1,6 +1,10 @@
 #ifndef __ZM_H__
 #define __ZM_H__
 
+#include <iostream>
+#include "inc/random.h"
+#include "inc/timing.h"
+
 #define ZM_DEBUG  0
 #define zmDebugInfo(str)  std::cout<<"File "<<__FILE__<<" | Func "<<__FUNCTION__<<" | Line "<<__LINE__<<" : "<<str<<std::endl;
 
@@ -13,6 +17,4 @@
 #define zmMalloc malloc
 #define zmRealloc realloc
 
-#include "inc/random.h"
-#include "inc/timing.h"
 #endif

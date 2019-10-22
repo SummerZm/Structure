@@ -40,7 +40,7 @@ namespace zmArray
 			char* display();
 
 		protected:
-			bool resize(const int);
+			bool resize(const unsigned);
 
 		private:
 			T* m_data;
@@ -53,7 +53,6 @@ namespace zmArray
 		m_size = 0;
 		m_capacity = N;
 		m_data = new T[N];
-		std::cout<<"new size: "<<sizeof(T)*N<<std::endl;
 	}
 
 	template <typename T, unsigned N>
@@ -101,7 +100,7 @@ namespace zmArray
 	int Array<T, N>::getCapacity() {return m_capacity;}
 
 	template<typename T, unsigned N>
-	bool Array<T, N>::resize(const int capacity)
+	bool Array<T, N>::resize(const unsigned capacity)
 	{
 		if (capacity<=m_size) {
 			zmDebugInfo("Resize failed capacity<=m_size!");
@@ -111,7 +110,7 @@ namespace zmArray
 		// Do not surpport String. why ??
 		std::cout<<m_capacity<<" => "<<capacity<<std::endl;
 		T* tmp = (T*)new T[capacity];
-		for(int i=0; i<m_size; i++) {
+		for(unsigned int i=0; i<m_size; i++) {
 			tmp[i] = m_data[i];
 		}
 		m_data = tmp;
@@ -124,7 +123,7 @@ namespace zmArray
 	void Array<T, N>::remove(const unsigned pos)
 	{
 		if (pos>=0 && pos<m_size) {
-			for (int i=pos; i<m_size; i++) m_data[i] = m_data[i+1]; 
+			for (unsigned int i=pos; i<m_size; i++) m_data[i] = m_data[i+1]; 
 			if (--m_size<m_capacity/4 && m_capacity/4>0) resize(m_capacity/2);
 		}
 	}
@@ -140,7 +139,7 @@ namespace zmArray
 	{
 		if (pos>=0 && pos<=m_size) {
 			if (m_size == m_capacity) resize(m_capacity*2);
-			for (int i=m_size; i>pos; i--) { m_data[i] = m_data[i-1]; }
+			for (unsigned i=m_size; i>pos; i--) { m_data[i] = m_data[i-1]; }
 			m_data[pos] = val;
 			m_size++;
 			return true;
