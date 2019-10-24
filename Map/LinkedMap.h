@@ -17,7 +17,7 @@ namespace zmMap
 			Node();
 			Node(const K& , const V&);
 			Node(const Node<K, V>&);
-			~Node();
+			virtual ~Node();
 			K getKey();
 			V getVal();
 			Node<K, V>* getNext();

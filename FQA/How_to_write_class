@@ -1,0 +1,33 @@
+1. 更好的封装
+
+	class BstMap: public Map<K, V>
+	{
+		public：
+			BstMap();
+			virtual ~BstMap();
+			void add(const K& key, const V& value);
+			bool remove(const K& key);
+			bool get(const K& key, V& val );			// 【get 值返回 - 绝对不返回指针or引用，避免外部污染对象内部数据】
+			void set(const K& key, const V& newValue);  // 【set 值传入 - 封装内部处理细节，便于模块化，形成输入栅栏】
+			int getSize();
+			bool isEmpty();
+
+		protected:										//  【内部成员函数，允许传递/返回指针or引用, 方便调整数据/结构, 视情况设置为protect 或 private】
+			//bool addNode(const Node<K, V>* root, const Node<K, V>& node);
+			/*Node<K, V>& addNode(Node<K, V>& root, const K& key, const V& val);
+			bool getNode(const Node<K. V>& root, const K& key, Node<K, V>& node);
+			Node<K, V>& getMinimumNode(const Node<K, V>& node);
+			Node<K, V>& removeNode(Node<K, V>& root, const K& key);
+			void setNode(Node<K, V>* root, const K& key, const V& newValue);*/
+
+			Node<K, V>* addNode(Node<K, V>* root, const K& key, const V& val);
+			Node<K, V>* getNode(const Node<K, V>* root, const K& key);
+			Node<K, V>* removeNode(const Node<K, V>*, const K& key);
+			Node<K, V>* getMinimumNode(const Node<K, V>* node);
+			Node<K, V>* removeMinimumNode(const Node<K, V>* root) 
+			bool setNode(Node<K, V>* root, const K& key, const V& Val);
+
+		private:
+			Node<K, V>* m_root;	// 【将数据声明为私有】
+			int m_size;
+	};

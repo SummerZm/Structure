@@ -1,4 +1,4 @@
-1. 明确继承是一个 is a 的关系：
+A. 明确继承是一个 is a 的关系：
 	// 使用组合不要使用多继承的方式，更合理
 	// class ArrayQueue: Array<T, N>, public Queue<T>
 	class ArrayQueue: public Queue<T>  // is a
@@ -12,3 +12,11 @@
 		private:
 			Array<T, N> m_data; // has a 
 	};
+
+B. public, protected, private 的实现机制是什么？
+
+C. 权限关键字：
+	a. public: 任何实体
+	b. protected: 子类，本类的成员函数
+	c. private: 只允许在本类中访问 
+	

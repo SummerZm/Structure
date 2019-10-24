@@ -3,7 +3,6 @@
 template<typename K, typename V>
 class Map {
 	void add(const K& key, const V& value);
-	//V remove(const K& key);
 	bool remove(const K& key);
 	bool get(const K& key, V& val );
 	void set(const K& key, const V& newValue);
