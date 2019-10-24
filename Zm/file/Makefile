@@ -7,7 +7,7 @@ CXXFLAGS := -Wall -O3
 
 # 头文件和lib路径
 INC_ROOT = include
-INCLUDE_PATH = -I../../Array -I../inc/ -I../
+INCLUDE_PATH = -I../../Array -I../inc/ -I../ -I../../Map/
 LIB_ROOT = lib
 
 # 目标文件

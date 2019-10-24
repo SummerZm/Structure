@@ -16,7 +16,7 @@ namespace zmTree
 			Node();
 			Node(const T&);
 			Node(const Node<T>&);
-			~Node();
+			virtual ~Node();
 			void display() const;
 			friend bool operator< <>(const Node<T>&, const Node<T>&);
 			friend bool operator> <>(const Node<T>&, const Node<T>&);
