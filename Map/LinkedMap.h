@@ -21,6 +21,7 @@ namespace zmMap
 			K getKey();
 			V getVal();
 			Node<K, V>* getNext();
+			void setNext(Node<K, V>*);
 			bool setVal(const V&);
 			friend bool operator== <>(const Node<K, V>&, const Node<K, V>&);
 			friend bool operator!= <>(const Node<K, V>&, const Node<K, V>&);
@@ -54,8 +55,7 @@ namespace zmMap
 	template <typename K, typename V>
 	bool operator!=(const Node<K, V>& n1, const Node<K, V>& n2) { return !operator==(n1, n2);}
 
-	template <typename K, typename V>
-	Node<K, V>::~Node() { m_next = NULL;}
+	template <typename K, typename V> Node<K, V>::~Node() { m_next = NULL;}
 
 	template <typename K, typename V>
 	K Node<K, V>::getKey() { return m_key; } 
@@ -65,6 +65,9 @@ namespace zmMap
 
 	template <typename K, typename V>
 	Node<K, V>* Node<K, V>::getNext() { return m_next;}
+	
+	template <typename K, typename V>
+	void Node<K, V>::setNext(Node<K, V>* node) { m_next = node;}
 
 	template <typename K, typename V>
 	bool Node<K, V>::setVal(const V& val) { return m_val=val; }
@@ -116,15 +119,17 @@ namespace zmMap
 			cursor = cursor->getNext();
 			delete m_data;
 			m_data = cursor;
+			m_size--;
 		}
+		std::cout<<"Size: "<<m_size<<std::endl;
 		m_size = 0;
 	}
 
 	template <typename K, typename V>
 	bool LinkedMap<K, V>::contains(const K& key, const V& val) { 
 		bool ret = false;
-		Node<K, V> node = new Node<K, V>(key, val);
-		if(node) ret = contains(node);
+		Node<K, V>* node = new Node<K, V>(key, val);
+		if(node) ret = contains(*node);
 		delete node;
 		return ret;
 	}
@@ -152,10 +157,11 @@ namespace zmMap
 	template <typename K, typename V>
 	void LinkedMap<K, V>::add(const K& key, const V& value) {
 		if(contains(key, value)) return;
-		Node<K, V> node = new Node<K, V>(key, value);
+		Node<K, V>* node = new Node<K, V>(key, value);
 		if (node) {
-			if(m_data) node->getNext = m_data;
+			if(m_data) node->setNext(m_data);
 			m_data = node;
+			m_size++;
 		}
 		else {
 			zmDebugInfo("LinkedMap add failed!")
@@ -169,13 +175,15 @@ namespace zmMap
 		if(!cursor) return false;
 		if(cursor->getKey() == key)	{
 			delete cursor;
+			m_size--;
 			m_data = cursor = NULL;
 			return true;
 		}	
 		while(cursor->getNext()) {
 			if(cursor->getNext()->getKey() == key) {
 				Node<K, V> *tmp = cursor->getNext();
-				cursor->getNext()= tmp->getNext();	
+				cursor->setNext(tmp->getNext());	
+				m_size--;
 				delete tmp;
 				return true;
 			}
@@ -186,7 +194,8 @@ namespace zmMap
 
 	template <typename K, typename V>
 	bool LinkedMap<K, V>::get(const K& key, V& val) {
-		const Node<K, V> *node = getNode(key);
+		//const Node<K, V> *node = getNode(key); [error: 如果返回const对象，则只能调用Node<K, V>的const函数]
+		Node<K, V> *node = getNode(key);
 		if (node) {
 			val = node->getVal();
 			return true;
