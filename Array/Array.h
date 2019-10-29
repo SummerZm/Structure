@@ -24,6 +24,7 @@ namespace zmArray
 			/* Prop*/
 			int getSize();
 			int getCapacity();
+			bool isEmpty();
 			/* Del can' t return pointer*/ 
 			void remove(const unsigned);
 			void removeFirst();
@@ -32,10 +33,11 @@ namespace zmArray
 			bool add(const T&, const unsigned);
 			bool addFirst(const T&);
 			bool addLast(const T&);
-			/* Get/set/pos */
+			/* Get/set/pos/swap */
 			T get(unsigned);
 			bool set(const T&, unsigned);
 			int pos(const T&);
+			void swap(const int&, const int&);
 			/* Show*/
 			char* display();
 
@@ -99,6 +101,9 @@ namespace zmArray
 	template<typename T, unsigned N>
 	int Array<T, N>::getCapacity() {return m_capacity;}
 
+	template<typename T, unsigned N>
+	bool Array<T, N>::isEmpty() { return m_size==0; }
+ 
 	template<typename T, unsigned N>
 	bool Array<T, N>::resize(const unsigned capacity)
 	{
@@ -174,6 +179,16 @@ namespace zmArray
 			std::cout<<m_data[i]<<" ";
 		std::cout<<std::endl<<"Capacity: "<<m_capacity<<" Size: "<<m_size<<std::endl;
 		return NULL;
+	}
+
+	template<typename T, unsigned N>
+	void Array<T, N>::swap(const int& i, const int& j)
+	{
+		if(i>=0 && i<m_size && j>=0 && j<m_size) {
+			T tmp = m_data[i];
+			m_data[i] = m_data[j];
+			m_data[j] = tmp;
+		}
 	}
 }
 #endif
