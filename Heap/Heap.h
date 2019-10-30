@@ -12,9 +12,13 @@ class Heap
 		int add(const T&);
 		void inOrder(); // just for fun
 		void display();
+		bool extractMax(T&);
+		bool replace(T&, T&);
+		bool getMax(T&);
 
 	protected:
 		int shiftUp(int&);
+		void shiftDown(int);
 		int parent(const int&);
 		int leftChild(const int&);
 		int rightChild(const int&);
@@ -63,5 +67,41 @@ void Heap<T, N>::inOrder(int index)
 
 template <typename T, unsigned N> void Heap<T, N>::inOrder() { inOrder(0); }
 template <typename T, unsigned N> void Heap<T, N>::display() { m_data.display(); }
+template <typename T, unsigned N> bool Heap<T, N>::getMax(T& max) { 
+	if(m_data.getSize() >0) {
+		max = m_data.get(0);
+		return true;
+	}
+	return false;
+}
+
+template <typename T, unsigned N> bool Heap<T, N>::extractMax(T& max) {
+	if(getMax(max)) {
+		m_data.swap(0, m_data.getSize()-1);
+		m_data.removeLast();
+		shiftDown(0);
+		return true;
+	}
+	return false;
+}
+// find the max
+template <typename T, unsigned N> void Heap<T, N>::shiftDown(int k) {
+	while ( leftChild(k) < m_data.getSize() ) {
+		int j = leftChild(k);
+		if ( j+1 < m_data.getSize() && m_data.get(j) < m_data.get(j+1)) j++;
+		if ( m_data.get(k) > m_data.get(j)) break;
+		m_data.swap(k, j);
+		k = j;
+	}
+}
+
+template <typename T, unsigned N> bool Heap<T, N>::replace(T& e, T& max) {
+	if ( getMax(max) ) {
+		m_data.set(e, 0);
+		shiftDown(0);
+		return true;
+	}
+	return false;
+}
 
 #endif

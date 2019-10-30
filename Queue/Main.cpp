@@ -4,6 +4,7 @@
 #include "ArrayQueue.h"
 #include "Linked.h"
 #include "LinkedQueue.h"
+#include "PriorityQueue.h"
 
 //using namespace zmLinked;
 template <typename T>
@@ -29,13 +30,16 @@ void testQueuePerformance()
 	using namespace std;
 	ArrayQueue<unsigned int, 1> Aq;
 	LoopQueue<unsigned int, 0> Lq;
-	LinkedQueue<unsigned>Linkedq;
+	LinkedQueue<unsigned> Linkedq;
+	PriorityQueue<unsigned, 1> pQ; 
 	cout<<"==== ArrayQueue ===="<<endl;
 	testQueue(Aq);
 	cout<<"==== LoopQueue ===="<<endl;
 	testQueue(Lq);
 	cout<<"==== LinkedQueue ===="<<endl;
 	testQueue(Linkedq);
+	cout<<"==== PriorityQueue ===="<<endl;
+	testQueue(pQ);
 }
 
 int main(int argc, char** argv)
