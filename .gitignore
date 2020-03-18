@@ -1,8 +1,10 @@
 *.exe
 *.exe.*
 *.o
+*.a
 :w
 error
 log
 diff
 patch
+Main

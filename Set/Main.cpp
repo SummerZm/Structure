@@ -1,10 +1,11 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "BSTSet.h"
+#include "BstSet.h"
 #include "Array.h"
 #include "LinkedSet.h"
 #include "ArraySet.h"
+#include "Map.h"
 #include "inc/fileOperation.h"
 #include "inc/timing.h"
 
